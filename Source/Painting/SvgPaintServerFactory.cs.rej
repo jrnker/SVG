@@ -1,0 +1,9 @@
+diff a/Source/Painting/SvgPaintServerFactory.cs b/Source/Painting/SvgPaintServerFactory.cs	(rejected hunks)
+@@ -89,6 +89,7 @@
+ 
+                 if (colourServer != null)
+                 {
++                    if (colourServer.Colour == Color.Transparent) { return "none"; } 
+                     return new SvgColourConverter().ConvertTo(colourServer.Colour, typeof(string));
+                 }
+ 
