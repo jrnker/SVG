@@ -114,6 +114,16 @@ namespace Svg
             get { return this.Path.GetBounds(); }
         }
 
+        public SvgUnit outerArea
+        {
+            get { return new SvgUnit(Svg.SvgExtentions.PathArea(this.Path.PathPoints)); }
+        }
+
+        public SvgUnit outerLength
+        {
+            get { return new SvgUnit(Svg.SvgExtentions.PathLength(this.Path.PathPoints)); }
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SvgPath"/> class.
         /// </summary>

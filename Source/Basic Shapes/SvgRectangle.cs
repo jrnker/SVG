@@ -249,12 +249,12 @@ namespace Svg
             }
         }
 
-        //[SvgAttribute("outerArea")]
+        
         public SvgUnit outerArea
         {
             get { return new SvgUnit(Svg.SvgExtentions.PathArea(this.Path.PathPoints)); }
         }
-        //[SvgAttribute("outerLength")]
+        
         public SvgUnit outerLength
         {
             get { return new SvgUnit(Svg.SvgExtentions.PathLength(this.Path.PathPoints)); }

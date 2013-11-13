@@ -79,6 +79,16 @@ namespace Svg
             get { return this._requiresSmoothRendering; }
         }
 
+        //[SvgAttribute("outerArea")]
+        public virtual SvgUnit PathOuterArea { get { return (float)0; } }
+        //[SvgAttribute("outerLength")]
+        public virtual SvgUnit PathOuterLength { get { return (float)0; } }
+        //[SvgAttribute("totalLength")]
+        public virtual SvgUnit PathTotalArea { get { return PathOuterArea; } }
+        //[SvgAttribute("totalLength")]
+        public virtual SvgUnit PathTotalLength { get { return PathOuterLength; } }
+
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SvgGraphicsElement"/> class.
         /// </summary>

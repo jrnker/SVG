@@ -82,13 +82,13 @@ namespace Svg
             get { return this.Path.GetBounds(); }
         }
 
-        //[SvgAttribute("outerArea")]
-        public SvgUnit outerArea
+        
+        public override SvgUnit PathOuterArea
         {
             get { return new SvgUnit(Svg.SvgExtentions.PathArea(this.Path.PathPoints)); }
         }
-        //[SvgAttribute("outerLength")]
-        public SvgUnit outerLength
+        
+        public override SvgUnit PathOuterLength
         {
             get { return new SvgUnit(Svg.SvgExtentions.PathLength(this.Path.PathPoints)); }
         }

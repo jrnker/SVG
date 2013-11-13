@@ -98,13 +98,13 @@ namespace Svg
             }
         }
 
-        //[SvgAttribute("outerArea")]
-        public SvgUnit outerArea
+        
+        public override SvgUnit PathOuterArea
         {
             get { return new SvgUnit((float)(Math.Pow(this.Radius, 2) * Math.PI)); } 
         }
-        //[SvgAttribute("outerLength")]
-        public SvgUnit outerLength
+        
+        public override SvgUnit PathOuterLength
         {
             get { return new SvgUnit((float)(this.Radius * 2 * Math.PI)); }
         }

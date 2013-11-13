@@ -53,6 +53,34 @@ namespace Svg
             }
         }
 
+
+        public override SvgUnit PathTotalArea
+        {            
+            get 
+            {
+                SvgUnit total = new float();
+            	foreach(var c in this.Children)
+            	{
+                    if (c is SvgVisualElement)
+                        total += ((SvgVisualElement)c).PathOuterArea; 
+            	}
+                return total;         	
+            } 
+        }
+        public override SvgUnit PathTotalLength
+        {
+            get
+            {
+                SvgUnit total = new float();
+                foreach (var c in this.Children)
+                {
+                    if (c is SvgVisualElement)
+                        total += ((SvgVisualElement)c).PathOuterLength;
+                }
+                return total;
+            } 
+        }
+
         /// <summary>
         /// Renders the <see cref="SvgElement"/> and contents to the specified <see cref="Graphics"/> object.
         /// </summary>

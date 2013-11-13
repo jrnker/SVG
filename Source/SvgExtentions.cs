@@ -103,5 +103,104 @@ namespace Svg
             float distance = (float)Math.Sqrt(a * a + b * b);
             return distance;
         }
+
+        static List<PointF> StringToPointsList(XmlAttribute points)
+        {
+            // List to hold all points in the polygon
+            List<PointF> pointList = new List<PointF>();
+
+            //  \r\n\t\tM557.792,527.031c0-2.349-1.904-4.252-4.252-4.252c-2.349,0-4.252,1.903-4.252,4.252c0,2.348,1.903,4.252,4.252,4.252\r\n\t\tC555.888,531.283,557.792,529.378,557.792,527.031L557.792,527.031z
+            var pointsString = points.Value;
+            //pointsString = pointsString.ToLower();
+            //for (int i=97;i<122;i++)
+            //{
+            //    pointsString = pointsString.Replace(((char)i).ToString()," ");
+            //}
+            pointsString = pointsString.Trim();
+            pointsString = pointsString.Replace(" ", ",");
+            pointsString = pointsString.Replace("-", ",-");
+            string[] splitter1 = { "," };
+            string[] pointArray = pointsString.Split(splitter1, StringSplitOptions.RemoveEmptyEntries);
+            float extracted, xPos = 0, yPos = 0;
+            bool isX = true;
+            bool upperCase = true;
+            for (int i = 0; i < pointArray.Length; i++)
+            {
+            doAgain:
+                pointArray[i] = pointArray[i].Trim();
+            if (float.TryParse(pointArray[i], out extracted))
+                {
+                    // Get x and y
+                    // xExtracted = Convert.ToDouble(pointArray[i].Trim());
+                    // yExtracted = Convert.ToDouble(pointArray[i+1].Trim());
+
+                    // Add the point to the pointlist
+                    if (!upperCase)
+                    {
+                        if (isX)
+                        {
+                            extracted += xPos;
+                        }
+                        else
+                        {
+                            extracted += yPos;
+                        }
+                    }
+                    if (isX)
+                    {
+                        xPos = extracted;
+                    }
+                    else
+                    {
+                        yPos = extracted;
+                    }
+                    if (!isX)
+                    {
+                        pointList.Add(new PointF()
+                        {
+                            X = xPos,
+                            Y = yPos
+                        });
+                    }
+                    isX = !isX;
+                }
+                else
+                {
+                    if (char.IsLetter(pointArray[i], 0))
+                    {
+                        upperCase = char.IsUpper(pointArray[i], 0);
+                        pointArray[i] = pointArray[i].Substring(1);
+                        if (float.TryParse(pointArray[i], out extracted))
+                        {
+                            goto doAgain;
+                        }
+                    }
+                    for (int n = 0; n < pointArray[i].Length; n++)
+                    {
+                        if (char.IsLetter(pointArray[i], n))
+                        {
+                            upperCase = char.IsUpper(pointArray[i], n);
+                            if (n == pointArray[i].Length - 1)
+                            {
+                                pointArray[i] = pointArray[i].Substring(0, n);
+                            }
+                            else
+                            {
+                                Array.Resize(ref pointArray, pointArray.Length + 1);
+                                for (int m = pointArray.Length - 1; m > i; m--)
+                                {
+                                    pointArray[m] = pointArray[m - 1];
+                                }
+                                pointArray[i] = pointArray[i].Substring(0, n);
+                                pointArray[i + 1] = pointArray[i + 1].Substring(n);
+                            }
+                            goto doAgain;
+                        }
+                    }
+
+                }
+            }
+            return pointList;
+        }
     }
 }
