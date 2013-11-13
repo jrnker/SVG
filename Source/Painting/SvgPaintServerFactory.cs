@@ -89,6 +89,7 @@ namespace Svg
 
                 if (colourServer != null)
                 {
+                    if (colourServer.Colour == Color.Transparent) { return "none"; } 
                     return new SvgColourConverter().ConvertTo(colourServer.Colour, typeof(string));
                 }
 
