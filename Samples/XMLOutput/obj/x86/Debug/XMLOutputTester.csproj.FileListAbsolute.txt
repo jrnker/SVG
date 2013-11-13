@@ -1,0 +1,15 @@
+D:\Users\cjarnaker\Downloads\SVG-master\SVG-master\Samples\XMLOutput\obj\x86\Debug\XMLOutputTester.csprojResolveAssemblyReference.cache
+D:\Users\cjarnaker\Downloads\SVG-master\SVG-master\Samples\XMLOutput\obj\x86\Debug\XMLOutputTester.Form1.resources
+D:\Users\cjarnaker\Downloads\SVG-master\SVG-master\Samples\XMLOutput\obj\x86\Debug\XMLOutputTester.Properties.Resources.resources
+D:\Users\cjarnaker\Downloads\SVG-master\SVG-master\Samples\XMLOutput\obj\x86\Debug\XMLOutputTester.csproj.GenerateResource.Cache
+D:\Users\cjarnaker\Downloads\SVG-master\SVG-master\Samples\XMLOutput\bin\Debug\XMLOutputTester.exe.config
+D:\Users\cjarnaker\Downloads\SVG-master\SVG-master\Samples\XMLOutput\bin\Debug\XMLOutputTester.exe
+D:\Users\cjarnaker\Downloads\SVG-master\SVG-master\Samples\XMLOutput\bin\Debug\XMLOutputTester.pdb
+D:\Users\cjarnaker\Downloads\SVG-master\SVG-master\Samples\XMLOutput\bin\Debug\Svg.dll
+D:\Users\cjarnaker\Downloads\SVG-master\SVG-master\Samples\XMLOutput\bin\Debug\Svg.pdb
+D:\Users\cjarnaker\Downloads\SVG-master\SVG-master\Samples\XMLOutput\bin\Debug\Svg.xml
+D:\Users\cjarnaker\Downloads\SVG-master\SVG-master\Samples\XMLOutput\obj\x86\Debug\XMLOutputTester.exe
+D:\Users\cjarnaker\Downloads\SVG-master\SVG-master\Samples\XMLOutput\obj\x86\Debug\XMLOutputTester.pdb
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\XMLOutput\bin\Debug\XMLOutputTester.exe.config
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\XMLOutput\obj\x86\Debug\XMLOutputTester.exe
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\XMLOutput\obj\x86\Debug\XMLOutputTester.pdb
