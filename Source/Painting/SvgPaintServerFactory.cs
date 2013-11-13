@@ -50,7 +50,7 @@ namespace Svg
             {
             	var s = (string) value;
             	if(String.Equals( s.Trim(), "none", StringComparison.OrdinalIgnoreCase))
-            		return SvgPaintServer.None;
+                    return SvgPaintServerFactory.Create("transparent", (SvgDocument)context);
             	else
                 	return SvgPaintServerFactory.Create(s, (SvgDocument)context);
             }
