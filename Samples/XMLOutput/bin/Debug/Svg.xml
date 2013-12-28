@@ -975,6 +975,62 @@
             	<paramref name="absoluteUri"/> is null. </exception>
             <exception cref="T:System.Exception">There is a runtime error (for example, an interrupted server connection). </exception>
         </member>
+        <member name="M:Svg.SvgCollision.checkForCollision(Svg.SvgElementCollection,Svg.SvgCollision.collisionCheckType,System.Single,Svg.Vector)">
+            <summary>
+            Test all visualelements in a SvgElementCollection for collisions and return the result as a list of PolygonCollisionResult
+            </summary>
+            <param name="elCol"></param>
+            <param name="colCheckType">Optional</param>
+            <param name="minimumArea">Optional, should only be used if a majority of objects should be excluded from collision detection as it otherwise can cause a large performance penalty</param>
+            <param name="velocity">Optional to simulate movement of all objects in certain direction. Result stored in PolygonCollisionResult.WillIntersect.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Svg.SvgCollision.PolygonCollisionResult">
+            <summary>
+            Holds the result from the tests, sometimes only with partial results depending on the test.
+            </summary>
+        </member>
+        <member name="T:Svg.SvgCollision.collisionCheckType">
+            <summary>
+            Type of test to perform
+            </summary>
+        </member>
+        <member name="T:Svg.SvgCollision.boundCrossingType">
+            <summary>
+            Declares if the object tested is inside or outside (or mixed) the object tested against, by using raycasting. 
+            </summary>
+        </member>
+        <member name="M:Svg.LineIntersection.PolygonCollision(System.Drawing.PointF[],System.Drawing.PointF[])">
+            <summary>
+            Test if two polygons collide by testing each line segment in polygon 1 against each line segment in polygon 2.
+            Returns a parially filled SvgCollision.PolygonCollisionResult.
+            </summary>
+            <param name="ptsA">Polygon 1 point array</param>
+            <param name="ptsB">Polygon 2 point array</param> 
+            <returns></returns>
+        </member>
+        <member name="M:Svg.LineIntersection.DoLinesIntersect(System.Drawing.PointF,System.Drawing.PointF,System.Drawing.PointF,System.Drawing.PointF)">
+            <summary>
+            Test if two lines intersect by providing start and end points for the two lines.
+            </summary>
+            <param name="ps1">Start point line 1</param>
+            <param name="pe1">End point line 1</param>
+            <param name="ps2">Start point line 2</param>
+            <param name="pe2">End point line 2</param>
+            <returns></returns>
+        </member>
+        <member name="M:Svg.LineIntersection.RayCasting(System.Drawing.PointF[],System.Drawing.PointF[])">
+            <summary>
+            Returns the state polygon 2 crossing the bounds of a polygon 1.
+            If minCrossings and maxCrossings are the same then the result is either inside or outside.
+            If they aren't the same then polygon 2 is crossing the bounds of polygon 1. 
+            </summary>
+            <param name="ptsA"></param>
+            <param name="ptsB"></param>
+            <param name="minCrossings">Returns the minimum value the edges of polygon 2 crossed the bounds of polygon 1</param>
+            <param name="maxCrossings">Returns the maximum value the edges of polygon 2 crossed the bounds of polygon 1</param>
+            <returns></returns>
+        </member>
         <member name="T:Svg.SvgCoordinateUnits">
             <summary>
             Defines the various coordinate units certain SVG elements may use.

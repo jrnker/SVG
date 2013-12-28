@@ -40,7 +40,8 @@ namespace XMLOutputTester
                 Radius = 100,
                 Fill = SvgPaintServer.None,
                 Stroke = new SvgColourServer(Color.Black),
-                StrokeWidth = 2
+                StrokeWidth = 2,
+                ID = "big"
             });
             group.Children.Add(new SvgCircle
             {
@@ -49,7 +50,8 @@ namespace XMLOutputTester
                 Radius = 50,
                 Fill = new SvgColourServer(Color.Transparent),
                 Stroke = new SvgColourServer(Color.Black),
-                StrokeWidth = 2
+                StrokeWidth = 2,
+                ID = "small"
             });
 
             var stream = new MemoryStream();
@@ -84,16 +86,90 @@ namespace XMLOutputTester
                 
             pictureBox1.Image = FSvgDoc.Draw();
             IterateKids(FSvgDoc.Children);
+
+            Vector velocity = new Vector(0, 0);
+            DateTime dte1, dte2;
+            List<SvgCollision.PolygonCollisionResult> collisions;
+
+            //dte1 = DateTime.Now;
+            //collisions = SvgCollision.checkForCollision(FSvgDoc.Children, SvgCollision.collisionCheckType.LineCollision, velocity);
+            //dte2 = DateTime.Now;
+            //Debug.WriteLine((dte2 - dte1).TotalMilliseconds.ToString());
+            //foreach (SvgCollision.PolygonCollisionResult col in collisions)
+            //{
+            //    //Debug.WriteLine(col.collidor.ToString() + " intersects with " + col.collidee.ToString() + "\tIsIntersecting=" + col.IsIntersecting + "\tWillIntersect=" + col.WillIntersect + "\tOnPath=" + col.OnPath);
+            //}
+
+
+            //dte1 = DateTime.Now;
+            //collisions = SvgCollision.checkForCollision(FSvgDoc.Children, SvgCollision.collisionCheckType.SeparatingAxisTheorem, velocity);
+            //dte2 = DateTime.Now;
+            //Debug.WriteLine((dte2 - dte1).TotalMilliseconds.ToString());
+            //foreach (SvgCollision.PolygonCollisionResult col in collisions)
+            //{
+            //    //Debug.WriteLine(col.collidor.ToString() + " intersects with " + col.collidee.ToString() + "\tIsIntersecting=" + col.IsIntersecting + "\tWillIntersect=" + col.WillIntersect + "\tOnPath=" + col.OnPath);
+            //} 
+
+
+            dte1 = DateTime.Now;
+            collisions = SvgCollision.checkForCollision(FSvgDoc.Children, SvgCollision.collisionCheckType.Mixed,0, velocity);
+            dte2 = DateTime.Now;
+            Debug.WriteLine((dte2 - dte1).TotalMilliseconds.ToString() + "\t" + collisions.Count + " collisions found");
+
+            foreach (SvgCollision.PolygonCollisionResult col in collisions)
+            {
+                //Debug.WriteLine(col.collidor.ToString() + " intersects with " + col.collidee.ToString() + "\tIsIntersecting=" + col.IsIntersecting + "\tWillIntersect=" + col.WillIntersect + "\tOnPath=" + col.OnPath + "\tRayCasting=" + col.rayCastingResult);
+            }
             }
             catch { }
 
+
+            //drawCirclePath(FSvgDoc.Children);
+
         }
+
+        //List<SvgVisualElement> toAdd;
+        //public void drawCirclePath(SvgElementCollection elcol)
+        //{
+        //    toAdd = new List<SvgVisualElement>();
+        //    _drawCirclePath(elcol);
+        //    foreach (SvgVisualElement els in toAdd)
+        //    {
+        //        FSvgDoc.Children.Add(els);
+        //    }
+        //    pictureBox1.Image = FSvgDoc.Draw();
+        //}
+        //private void _drawCirclePath(SvgElementCollection elcol)
+        //{ 
+        //    SvgPolygon lolo; 
+        //    foreach (SvgElement el in elcol)
+        //    {
+        //        if (el.Children.Count != 0) _drawCirclePath(el.Children);
+        //        if (el is SvgCircle)
+        //        { 
+        //            lolo = new SvgPolygon
+        //            {
+        //                Points = new SvgUnitCollection(),
+        //                Fill = SvgPaintServer.None,
+        //                Stroke = new SvgColourServer(Color.Black),
+        //                StrokeWidth = 2,
+        //                ID = ((SvgCircle)el).ID + "_convToPath"
+        //            };
+        //            foreach (PointF pt in ((SvgCircle)el).Path.PathPoints)
+        //            { 
+        //                lolo.Points.Add(pt.X);
+        //                lolo.Points.Add(pt.Y); 
+        //            }
+        //            toAdd.Add((SvgVisualElement)lolo);
+        //        }
+        //    }
+        
+        //}
 
         private void IterateKids(SvgElementCollection elCol)
         { 
             foreach (SvgElement el in elCol)
             {
-
                 if (el is Svg.SvgGroup)
                 {
                     Svg.SvgGroup bla = (Svg.SvgGroup)el;
@@ -102,13 +178,16 @@ namespace XMLOutputTester
                 if (el.Children.Count == 0)
                 {
                     if (el.ID != null)
-                    { Debug.WriteLine(el.ID.ToString()); }
-                    else { Debug.WriteLine("No id"); }
+                    { 
+                        //Debug.WriteLine(el.ID.ToString()); 
+                    }
+                    else { 
+                        //Debug.WriteLine("No id"); 
+                    }
                     
                     if (el is Svg.SvgCircle)
                     {
                         Svg.SvgCircle bla = (Svg.SvgCircle)el;
-                        var loo = FSvgDoc.Children;
                     }
                     else if (el is Svg.SvgEllipse)
                     {
@@ -124,11 +203,15 @@ namespace XMLOutputTester
                     }
                     else if (el is Svg.SvgPolygon)
                     {
-                        Svg.SvgPolygon bla = (Svg.SvgPolygon)el; 
+                        Svg.SvgPolygon bla = (Svg.SvgPolygon)el;
                     }
                     else if (el is Svg.SvgPolyline)
                     {
                         Svg.SvgPolyline bla = (Svg.SvgPolyline)el;
+                    }
+                    else if (el is Svg.SvgPath)
+                    {
+                        Svg.SvgPath bla = (Svg.SvgPath)el;
                     } 
                     else if (el is Svg.SvgRectangle)
                     {
@@ -146,6 +229,7 @@ namespace XMLOutputTester
                 }
 
             }
+
         
         }
         private void Form1_Load(object sender, EventArgs e)

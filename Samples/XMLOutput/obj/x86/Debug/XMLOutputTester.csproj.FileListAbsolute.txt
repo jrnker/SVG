@@ -13,3 +13,12 @@ D:\Users\cjarnaker\Downloads\SVG-master\SVG-master\Samples\XMLOutput\obj\x86\Deb
 D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\XMLOutput\bin\Debug\XMLOutputTester.exe.config
 D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\XMLOutput\obj\x86\Debug\XMLOutputTester.exe
 D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\XMLOutput\obj\x86\Debug\XMLOutputTester.pdb
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\XMLOutput\obj\x86\Debug\XMLOutputTester.csprojResolveAssemblyReference.cache
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\XMLOutput\obj\x86\Debug\XMLOutputTester.Form1.resources
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\XMLOutput\obj\x86\Debug\XMLOutputTester.Properties.Resources.resources
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\XMLOutput\obj\x86\Debug\XMLOutputTester.csproj.GenerateResource.Cache
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\XMLOutput\bin\Debug\XMLOutputTester.exe
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\XMLOutput\bin\Debug\XMLOutputTester.pdb
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\XMLOutput\bin\Debug\Svg.dll
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\XMLOutput\bin\Debug\Svg.pdb
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\XMLOutput\bin\Debug\Svg.xml

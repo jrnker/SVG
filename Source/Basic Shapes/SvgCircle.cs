@@ -90,6 +90,7 @@ namespace Svg
                 {
                     _path = new GraphicsPath();
                     _path.StartFigure();
+                    //_path.AddPolygon(Svg.SvgObjectToPath.AddCircle(this.Center,this.Radius));
                     _path.AddEllipse(this.Center.ToDeviceValue().X - this.Radius.ToDeviceValue(), this.Center.ToDeviceValue().Y - this.Radius.ToDeviceValue(), 2 * this.Radius.ToDeviceValue(), 2 * this.Radius.ToDeviceValue());
                     _path.CloseFigure();
                     this.IsPathDirty = false;
