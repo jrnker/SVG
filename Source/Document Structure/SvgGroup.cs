@@ -42,10 +42,16 @@ namespace Svg
         public override System.Drawing.RectangleF Bounds
         {
             get 
-            { 
-            	var r = new RectangleF();
+            {
+                RectangleF r = new RectangleF();
+                bool isSet = false;
             	foreach(var c in this.Children)
             	{
+                    if (!isSet)
+                    {
+                        r = ((SvgVisualElement)c).Bounds; 
+                        isSet = true;
+                    }
             		if(c is SvgVisualElement)
             			r = RectangleF.Union(r, ((SvgVisualElement)c).Bounds);
             	}
