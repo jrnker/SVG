@@ -53,7 +53,14 @@ namespace Svg
         /// <param name="item">The <see cref="SvgElement"/> to be added.</param>
         public void Insert(int index, SvgElement item)
         {
+            InsertAndForceUniqueID(index, item, false, false);
+        }
+
+        public void InsertAndForceUniqueID(int index, SvgElement item, bool autoForceUniqueID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
+        {
+            AddToIdManager(item, this._elements[index], autoForceUniqueID, autoFixChildrenID, logElementOldIDNewID);
             this._elements.Insert(index, item);
+            item._parent.OnElementAdded(item, index);
         }
 
         public void RemoveAt(int index)
@@ -74,19 +81,36 @@ namespace Svg
 
         public void Add(SvgElement item)
         {
+            this.AddAndForceUniqueID(item, false, false);
+        }
+
+        public void AddAndForceUniqueID(SvgElement item, bool autoForceUniqueID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
+        {
+            AddToIdManager(item, null, autoForceUniqueID, autoFixChildrenID, logElementOldIDNewID);
+            this._elements.Add(item);
+            item._parent.OnElementAdded(item, this.Count - 1);
+        }
+
+        private void AddToIdManager(SvgElement item, SvgElement sibling, bool autoForceUniqueID = true, bool autoFixChildrenID = true, Action<SvgElement, string, string> logElementOldIDNewID = null)
+        {
             if (!this._mock)
             {
-                if (this._owner.OwnerDocument != null)
-                {
-                    item.ApplyRecursive(this._owner.OwnerDocument.IdManager.Add);
-                }
+            	if (this._owner.OwnerDocument != null)
+            	{
+                    this._owner.OwnerDocument.IdManager.AddAndForceUniqueID(item, sibling, autoForceUniqueID, logElementOldIDNewID);
 
+                    if (!(item is SvgDocument)) //don't add subtree of a document to parent document
+                    {
+                        foreach (var child in item.Children)
+                        {
+                            child.ApplyRecursive(e => this._owner.OwnerDocument.IdManager.AddAndForceUniqueID(e, null, autoFixChildrenID, logElementOldIDNewID));
+                        }
+                    }
+                }
+                
+                //if all checked, set parent
                 item._parent = this._owner;
             }
-
-            item._parent.OnElementAdded(item, this.Count - 1);
-
-            this._elements.Add(item);
         }
 
         public void Clear()
@@ -132,7 +156,7 @@ namespace Svg
 
                     if (this._owner.OwnerDocument != null)
                     {
-                        item.ApplyRecursive(this._owner.OwnerDocument.IdManager.Remove);
+                        item.ApplyRecursiveDepthFirst(this._owner.OwnerDocument.IdManager.Remove);
                     }
                 }
             }

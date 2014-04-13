@@ -13,28 +13,29 @@ namespace Svg
     [SvgElement("polyline")]
     public class SvgPolyline : SvgPolygon
     {
+        private GraphicsPath _Path;
         public override GraphicsPath Path
         {
             get
             {
-                if (this._path == null || this.IsPathDirty)
+                if (_Path == null || this.IsPathDirty)
                 {
-                    this._path = new GraphicsPath();
+                    _Path = new GraphicsPath();
 
                     try
                     {
-                        for (int i = 0; i < this._points.Count; i += 2)
+                        for (int i = 0; i < Points.Count; i += 2)
                         {
-                            PointF endPoint = new PointF(this._points[i].ToDeviceValue(this), this._points[i + 1].ToDeviceValue(this));
+                            PointF endPoint = new PointF(Points[i].ToDeviceValue(this), Points[i + 1].ToDeviceValue(this));
 
                             // TODO: Remove unrequired first line
-                            if (_path.PointCount == 0)
+                            if (_Path.PointCount == 0)
                             {
-                                _path.AddLine(endPoint, endPoint);
+                                _Path.AddLine(endPoint, endPoint);
                             }
                             else
                             {
-                                _path.AddLine(_path.GetLastPoint(), endPoint);
+                                _Path.AddLine(_Path.GetLastPoint(), endPoint);
                             }
                         }
                     }
@@ -44,7 +45,7 @@ namespace Svg
                     }
                     this.IsPathDirty = false;
                 }
-                return this._path;
+                return _Path;
             }
         }
     }

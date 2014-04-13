@@ -16,7 +16,7 @@ namespace Svg
     /// </summary>
     public class SvgDocument : SvgFragment, ITypeDescriptorContext
     {
-        public static readonly int PPI = 96;
+        public static readonly int PointsPerInch = 96;
         private SvgElementIdManager _idManager;
 
 
@@ -215,16 +215,12 @@ namespace Svg
                                     element = svgDocument;
                                 }
 
-                                if (element == null)
-                                {
-                                    continue;
-                                }
-
                                 // Add to the parents children
                                 if (elementStack.Count > 0)
                                 {
                                     parent = elementStack.Peek();
-                                    parent.Children.Add(element);
+                                    if (parent != null && element != null)
+                                        parent.Children.Add(element);
                                 }
 
                                 // Push element into stack
@@ -238,20 +234,16 @@ namespace Svg
 
                                 break;
                             case XmlNodeType.EndElement:
-                                // Skip if no element was created and is not the closing tag for the last
-                                // known element
-                                if (element == null && reader.LocalName != elementStack.Peek().ElementName)
-                                {
-                                    continue;
-                                }
+
                                 // Pop the element out of the stack
                                 element = elementStack.Pop();
 
-                                if (value.Length > 0)
+                                if (value.Length > 0 && element != null)
                                 {
                                     element.Content = value.ToString();
+                                    
                                     // Reset content value for new element
-                                    value = new StringBuilder();
+                                    value.Clear();
                                 }
                                 break;
                             case XmlNodeType.CDATA:

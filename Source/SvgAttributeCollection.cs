@@ -91,9 +91,12 @@ namespace Svg
             {
             	if(base.ContainsKey(attributeName))
             	{
-	            	var oldVal = base[attributeName];
-	            	base[attributeName] = value;
-	            	if(oldVal != value) OnAttributeChanged(attributeName, value);
+	            	var oldVal = base[attributeName];	            	
+	            	if(TryUnboxedCheck(oldVal, value))
+	            	{
+	            		base[attributeName] = value;
+	            		OnAttributeChanged(attributeName, value);
+	            	}
             	}
             	else
             	{
@@ -103,12 +106,45 @@ namespace Svg
             }
         }
         
+        private bool TryUnboxedCheck(object a, object b)
+        {
+        	if(IsValueType(a))
+        	{
+        		if(a is SvgUnit)
+        			return UnboxAndCheck<SvgUnit>(a, b);
+        		else if(a is bool)
+        			return UnboxAndCheck<bool>(a, b);
+        		else if(a is int)
+        			return UnboxAndCheck<int>(a, b);
+        		else if(a is float)
+        			return UnboxAndCheck<float>(a, b);
+        		else if(a is SvgViewBox)
+        			return UnboxAndCheck<SvgViewBox>(a, b);
+        		else
+        			return true;
+        	}
+        	else
+        	{
+        		return a != b;
+        	}
+        }
+        
+        private bool UnboxAndCheck<T>(object a, object b)
+        {
+        	return !((T)a).Equals((T)b);
+        }
+        
+        private bool IsValueType(object obj) 
+        {
+        	return obj != null && obj.GetType().IsValueType;
+        }
+        
         /// <summary>
         /// Fired when an Atrribute has changed
         /// </summary>
         public event EventHandler<AttributeEventArgs> AttributeChanged;
         
-        protected void OnAttributeChanged(string attribute, object value)
+        private void OnAttributeChanged(string attribute, object value)
         {
         	var handler = AttributeChanged;
         	if(handler != null)
@@ -164,7 +200,7 @@ namespace Svg
         /// </summary>
         public event EventHandler<AttributeEventArgs> AttributeChanged;
         
-        protected void OnAttributeChanged(string attribute, object value)
+        private void OnAttributeChanged(string attribute, object value)
         {
         	var handler = AttributeChanged;
         	if(handler != null)

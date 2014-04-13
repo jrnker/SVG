@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -84,13 +85,16 @@ namespace Svg
         [SvgAttribute("x")]
         public virtual SvgUnit X
         {
-            get { return this._x; }
-            set 
-            { 
-            	this._x = value; 
-            	this.IsPathDirty = true;
-            	OnAttributeChanged(new AttributeEventArgs{ Attribute = "x", Value = value });
-            }
+        	get { return this._x; }
+        	set
+        	{
+        		if(_x != value)
+        		{
+        			this._x = value;
+        			this.IsPathDirty = true;
+        			OnAttributeChanged(new AttributeEventArgs{ Attribute = "x", Value = value });
+        		}
+        	}
         }
 
         /// <summary>
@@ -100,13 +104,16 @@ namespace Svg
         [SvgAttribute("y")]
         public virtual SvgUnit Y
         {
-            get { return this._y; }
-            set 
-            { 
-            	this._y = value; 
-            	this.IsPathDirty = true; 
-            	OnAttributeChanged(new AttributeEventArgs{ Attribute = "y", Value = value });
-            }
+        	get { return this._y; }
+        	set
+        	{
+        		if(_y != value)
+        		{
+        			this._y = value;
+        			this.IsPathDirty = true;
+        			OnAttributeChanged(new AttributeEventArgs{ Attribute = "y", Value = value });
+        		}
+        	}
         }
 
         /// <summary>
@@ -172,7 +179,35 @@ namespace Svg
         public virtual string Font
         {
             get { return this._font; }
-            set { this._font = value; this.IsPathDirty = true; }
+            set
+            {
+                var parts = value.Split(',');
+                foreach (var part in parts)
+                {
+                    //This deals with setting font size. Looks for either <number>px or <number>pt style="font: bold 16px/normal 'trebuchet ms', verdana, sans-serif;"
+                    Regex rx = new Regex(@"(\d+)+(?=pt|px)");
+                    var res = rx.Match(part);
+                    if (res.Success)
+                    {
+                        int fontSize = 10;
+                        int.TryParse(res.Value, out fontSize);
+                        this.FontSize = new SvgUnit((float)fontSize);
+                    }
+
+                    //this assumes "bold" has spaces around it. e.g.: style="font: bold 16px/normal 
+                    rx = new Regex(@"\sbold\s");
+                    res = rx.Match(part);
+                    if (res.Success)
+                    {
+                        this.FontWeight = SvgFontWeight.bold;
+                    }
+                }
+                var font = ValidateFontFamily(value);
+                this._fontFamily = font;
+                this._font = font; //not sure this is used?
+
+                this.IsPathDirty = true;
+            }
         }
 
         /// <summary>
@@ -184,8 +219,8 @@ namespace Svg
         /// <value>The fill.</value>
         public override SvgPaintServer Fill
         {
-            get { return (this.Attributes["Fill"] == null) ? new SvgColourServer(Color.Black) : (SvgPaintServer)this.Attributes["Fill"]; }
-            set { this.Attributes["Fill"] = value; }
+            get { return (this.Attributes["fill"] == null) ? new SvgColourServer(Color.Black) : (SvgPaintServer)this.Attributes["fill"]; }
+            set { this.Attributes["fill"] = value; }
         }
 
         /// <summary>
@@ -275,6 +310,10 @@ namespace Svg
                 }
                 return _path;
             }
+            protected set
+            {
+                _path = value;
+            }
         }
 
         private static string ValidateFontFamily(string fontFamilyList)
@@ -285,7 +324,8 @@ namespace Svg
             var families = System.Drawing.FontFamily.Families;
 
             // Find a the first font that exists in the list of installed font families.
-            foreach (var f in fontParts.Where(f => families.Any(family => family.Name == f)))
+            //styles from IE get sent through as lowercase.
+            foreach (var f in fontParts.Where(f => families.Any(family => family.Name.ToLower() == f.ToLower())))
             {
                 return f;
             }
@@ -359,7 +399,43 @@ namespace Svg
 			}
 
 		}
+		
+		[SvgAttribute("onchange")]
+        public event EventHandler<StringArg> Change;
+		
+		//change
+        protected void OnChange(string newString, string sessionID)
+        {
+        	RaiseChange(this, new StringArg {s = newString, SessionID = sessionID});
+        }
+        
+        protected void RaiseChange(object sender, StringArg s)
+        {
+        	var handler = Change;
+            if (handler != null)
+            {
+                handler(sender, s);
+            }
+        }
 
+		public override void RegisterEvents(ISvgEventCaller caller)
+		{
+			//register basic events
+			base.RegisterEvents(caller); 
+			
+			//add change event for text
+            caller.RegisterAction<string, string>(this.ID + "/onchange", OnChange);
+		}
+		
+		public override void UnregisterEvents(ISvgEventCaller caller)
+		{
+			//unregister base events
+			base.UnregisterEvents(caller);
+			
+			//unregister change event
+        	caller.UnregisterAction(this.ID + "/onchange");
+			
+		}
 
 		public override SvgElement DeepCopy()
 		{

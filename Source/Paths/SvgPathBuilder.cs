@@ -5,8 +5,10 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using Svg.Pathing;
 using System.Text.RegularExpressions;
+using System.Threading;
+
+using Svg.Pathing;
 
 namespace Svg
 {
@@ -219,11 +221,11 @@ namespace Svg
             if ((isRelativeX || isRelativeY) && segments.Count > 0)
             {
                 var lastSegment = segments.Last;
- 
+
                 // if the last element is a SvgClosePathSegment the position of the previous element should be used because the position of SvgClosePathSegment is 0,0
-                 if (lastSegment is SvgClosePathSegment)
-                     lastSegment = segments[segments.Count - 2];
- 
+                if (lastSegment is SvgClosePathSegment)
+                    lastSegment = segments[segments.Count - 2];
+
                 if (isRelativeX)
                 {
                     point.X += lastSegment.End.X;
@@ -302,7 +304,11 @@ namespace Svg
 
                 if (paths != null)
                 {
-                    return string.Join(" ", paths.Select(p => p.ToString()).ToArray());
+                	var curretCulture = CultureInfo.CurrentCulture;
+                	Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+                	var s = string.Join(" ", paths.Select(p => p.ToString()).ToArray());
+                	Thread.CurrentThread.CurrentCulture = curretCulture;
+                    return s;
                 }
             }
 
