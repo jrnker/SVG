@@ -1,1 +1,8 @@
 C:\vvvv\PROJECTS\2011\svg\codeplex_svg\Samples\RuntimeUpdates\bin\Debug\SvgSample.exe.config
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\RuntimeUpdates\bin\Debug\SvgSample.exe.config
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\RuntimeUpdates\bin\Debug\SvgSample.exe
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\RuntimeUpdates\bin\Debug\SvgSample.pdb
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\RuntimeUpdates\bin\Debug\Svg.dll
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\RuntimeUpdates\obj\x86\Debug\SvgSample.csprojResolveAssemblyReference.cache
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\RuntimeUpdates\obj\x86\Debug\SvgSample.exe
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\RuntimeUpdates\obj\x86\Debug\SvgSample.pdb

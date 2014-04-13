@@ -94,7 +94,7 @@ namespace Svg
             {
                 throw new SvgException("An element with the same ID already exists: '" + id + "'.");
             }
-        }
+         }
 
         /// <summary>
         /// Initialises a new instance of an <see cref="SvgElementIdManager"/>.

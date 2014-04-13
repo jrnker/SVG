@@ -80,13 +80,37 @@ namespace Svg
         }
 
         //[SvgAttribute("outerArea")]
-        public virtual SvgUnit PathOuterArea { get { return (float)0; } }
+        public virtual SvgUnit PathOuterArea 
+        { 
+            //get { return (float)0; } 
+            get {
+                SvgUnit s = new SvgUnit(0);
+                try {s=new SvgUnit(Svg.SvgExtentions.PathArea(this.Path.PathPoints)); }
+                catch { } 
+                return s;
+            }
+        }
         //[SvgAttribute("outerLength")]
-        public virtual SvgUnit PathOuterLength { get { return (float)0; } }
+        public virtual SvgUnit PathOuterLength 
+        { 
+            //get { return (float)0; } 
+            get {
+                SvgUnit s = new SvgUnit(0);
+                try {s=new SvgUnit(Svg.SvgExtentions.PathLength(this.Path.PathPoints)); }
+                catch { } 
+                return s;
+            } 
+        }
         //[SvgAttribute("totalLength")]
-        public virtual SvgUnit PathTotalArea { get { return PathOuterArea; } }
+        public virtual SvgUnit PathTotalArea 
+        { 
+            get { return PathOuterArea; } 
+        }
         //[SvgAttribute("totalLength")]
-        public virtual SvgUnit PathTotalLength { get { return PathOuterLength; } }
+        public virtual SvgUnit PathTotalLength 
+        { 
+            get { return PathOuterLength; } 
+        }
 
 
         /// <summary>

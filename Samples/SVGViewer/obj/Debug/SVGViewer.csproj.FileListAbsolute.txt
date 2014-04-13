@@ -9,3 +9,12 @@ C:\vvvv\PROJECTS\2011\svg\codeplex_svg\Samples\SVGViewer\obj\Debug\SVGViewer.SVG
 C:\vvvv\PROJECTS\2011\svg\codeplex_svg\Samples\SVGViewer\obj\Debug\SVGViewer.Properties.Resources.resources
 C:\vvvv\PROJECTS\2011\svg\codeplex_svg\Samples\SVGViewer\obj\Debug\SVGViewer.exe
 C:\vvvv\PROJECTS\2011\svg\codeplex_svg\Samples\SVGViewer\obj\Debug\SVGViewer.pdb
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\SVGViewer\obj\Debug\SVGViewer.exe
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\SVGViewer\obj\Debug\SVGViewer.pdb
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\SVGViewer\bin\Debug\SVGViewer.exe
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\SVGViewer\bin\Debug\SVGViewer.pdb
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\SVGViewer\bin\Debug\Svg.pdb
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\SVGViewer\obj\Debug\SVGViewer.csprojResolveAssemblyReference.cache
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\SVGViewer\obj\Debug\SVGViewer.SVGViewer.resources
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\SVGViewer\obj\Debug\SVGViewer.Properties.Resources.resources
+D:\Visual Studio 2010\Projects\github\vvvv_SVG\Samples\SVGViewer\obj\Debug\SVGViewer.csproj.GenerateResource.Cache

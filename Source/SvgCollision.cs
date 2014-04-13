@@ -81,7 +81,7 @@ namespace Svg
                 {
                     if (innerElement.Children.Count != 0) iterate(outerElement.Children, innerElement.Children);
                     {
-                        if (innerElement is SvgVisualElement && outerElement != innerElement && !isParent(innerElement, outerElement))
+                        if (innerElement is SvgVisualElement && outerElement is SvgVisualElement && outerElement != innerElement && !isParent(innerElement, outerElement))
                         {
                             PolygonCollisionResult r = new PolygonCollisionResult(); 
                             try

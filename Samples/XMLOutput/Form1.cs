@@ -87,7 +87,7 @@ namespace XMLOutputTester
             pictureBox1.Image = FSvgDoc.Draw();
             IterateKids(FSvgDoc.Children);
 
-            Vector velocity = new Vector(0, 0);
+            Vector velocity = new Vector(0, 20);
             DateTime dte1, dte2;
             List<SvgCollision.PolygonCollisionResult> collisions;
 
@@ -118,7 +118,8 @@ namespace XMLOutputTester
 
             foreach (SvgCollision.PolygonCollisionResult col in collisions)
             {
-                //Debug.WriteLine(col.collidor.ToString() + " intersects with " + col.collidee.ToString() + "\tIsIntersecting=" + col.IsIntersecting + "\tWillIntersect=" + col.WillIntersect + "\tOnPath=" + col.OnPath + "\tRayCasting=" + col.rayCastingResult);
+                Debug.WriteLine(col.collidor.ToString() + " intersects with " + col.collidee.ToString() + "\tIsIntersecting=" + col.IsIntersecting + "\tWillIntersect=" + 
+                    col.WillIntersect + "\tOnPath=" + col.OnPath + "\tRayCasting=" + col.rayCastingResult + "\tMinVector=" + col.MinimumTranslationVector.X + "," + col.MinimumTranslationVector.Y   );
             }
             }
             catch { }

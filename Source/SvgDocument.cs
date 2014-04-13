@@ -355,6 +355,7 @@ namespace Svg
             //Trace.TraceInformation("Begin Render");
 
             var size = GetDimensions();
+            if (size.Height == 0 || size.Width == 0) return null;
             var bitmap = new Bitmap((int)Math.Ceiling(size.Width), (int)Math.Ceiling(size.Height));
        // 	bitmap.SetResolution(300, 300);
             try
